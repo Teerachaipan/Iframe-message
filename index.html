@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iframe Content</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Toast Notification from CMS</h1>
+    <form id="messageForm">
+        <label for="type">Type:</label>
+        <input type="text" id="type" name="type" required>
+        <br>
+        <label for="message">Message:</label>
+        <input type="text" id="message" name="message" required>
+        <br>
+        <label for="time">Time (ms):</label>
+        <input type="number" id="time" name="time" required>
+        <br>
+        <button type="submit">Send Message to Parent</button>
+    </form>
+
+    <script>
+        document.getElementById('messageForm').addEventListener('submit', (event) => {
+            event.preventDefault(); // ป้องกันการรีเฟรชหน้า
+
+            // รับค่าจากฟอร์ม
+            const type = document.getElementById('type').value;
+            const message = document.getElementById('message').value;
+            const time = parseInt(document.getElementById('time').value, 10);
+
+            // สร้างข้อความที่ต้องการส่ง
+            const messageData = {
+                type: type,
+                message: message,
+                time: time
+            };
+            console.log(messageData)
+            // ส่งข้อความไปยัง parent window
+            window.parent.postMessage(messageData, '*'); // ใช้ '*' เพื่ออนุญาตให้ส่งไปยังทุก origin
+        });
+    </script>
+</body>
+</html>
