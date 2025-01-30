@@ -68,9 +68,9 @@
         <input type="text" id="message" name="message" required>
         <br>
         <label for="time">Time (ms):</label>
-        <input type="number" id="time" name="time" required>
+        <input type="number" id="time" name="time">
         <br>
-        <button type="submit">Send Message to Parent</button>
+        <button type="submit">Send Message</button>
     </form>
 
     <script>
@@ -80,13 +80,14 @@
             // รับค่าจากฟอร์ม
             const type = document.getElementById('type').value;
             const message = document.getElementById('message').value;
-            const time = parseInt(document.getElementById('time').value, 10);
+            const timeInput = document.getElementById('time').value;
+            const time = timeInput ? parseInt(timeInput, 10) : undefined; 
 
             // สร้างข้อความที่ต้องการส่ง
             const messageData = {
                 type: type,
                 message: message,
-                time: time
+                ...(time !== undefined && { time })
             };
             console.log(messageData)
             // ส่งข้อความไปยัง parent window
