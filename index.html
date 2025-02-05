@@ -85,6 +85,7 @@
 
             // สร้างข้อความที่ต้องการส่ง
             const messageData = {
+                event_id: 'toast',
                 type: type,
                 message: message,
                 ...(time !== undefined && { time })
